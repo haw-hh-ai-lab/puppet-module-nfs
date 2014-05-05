@@ -9,4 +9,5 @@ project_page 'https://github.com/haraldsk/puppet-module-nfs'
 
 dependency 'puppetlabs/concat', '>= 1.0.0'
 dependency 'puppetlabs/stdlib', '>= 3.0.1'
+dependency 'domcleal/augeasproviders', '>= 1.1.0'
 
