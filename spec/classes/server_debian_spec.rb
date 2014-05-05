@@ -1,6 +1,6 @@
 
 require 'spec_helper'
-describe 'nfs::server::debian', :type => class do
+describe 'nfs::server::debian', :type => :class do
   it do
     should contain_class('nfs::client::debian')
     should contain_package('nfs-kernel-server')
