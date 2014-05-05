@@ -58,7 +58,7 @@ class nfs::server (
   class{ "nfs::server::${osfamily}":
     nfs_v4              => $nfs_v4,
     nfs_v4_idmap_domain => $nfs_v4_idmap_domain,
-    mount_port          => $mount_port,
+    mountd_port          => $mount_port,
   }
 
   include  nfs::server::configure
