@@ -14,9 +14,9 @@ describe 'nfs::server::debian', :type => :class do
 
   end
   context "mountd params set" do
-    let(:params) {{ :mountd_port => 4711 }}
+    let(:params) {{ :mountd_port => '4711', :mountd_threads => '99' }}
     it do
-      should contain_shellvar.with( 'ensure' => 'present' )
+      should contain_shellvar('rpc-mount-options').with( 'ensure' => 'present' )
     end
 
   end
