@@ -14,7 +14,7 @@ describe 'nfs::server::debian', :type => :class do
 
   end
   context "mountd params set" do
-    let(:params) {{ :mountd_port => 4711 }}
+    let(:params) {{ :mountd_port => '4711' }}
     it do
       should contain_shellvar.with( 'ensure' => 'present' )
     end
