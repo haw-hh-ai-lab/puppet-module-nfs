@@ -1,6 +1,8 @@
+#
+# select debian specific packages to install client support
+#
 class nfs::client::debian::install {
 
-  
       package { 'rpcbind':
         ensure => installed,
       }
