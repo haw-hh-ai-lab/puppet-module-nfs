@@ -2,15 +2,15 @@
 # select debian specific packages to install client support
 #
 class nfs::client::debian::install {
+  package { 'rpcbind':
+    ensure => installed,
+  }
 
-      package { 'rpcbind':
-        ensure => installed,
-      }
+  Package['rpcbind'] -> Service['rpcbind']
 
-     Package['rpcbind'] -> Service ['rpcbind']
-
-
-  package { ['nfs-common', 'nfs4-acl-tools']:
+  package { [
+    'nfs-common',
+    'nfs4-acl-tools']:
     ensure => installed,
   }
 

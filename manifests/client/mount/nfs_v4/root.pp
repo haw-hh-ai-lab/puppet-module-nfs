@@ -1,5 +1,4 @@
-#
-# == Define nfs::client::mount::nfs_v4::root
+# # == Define nfs::client::mount::nfs_v4::root
 #
 # Mounts the NFSv4 server root.
 #
@@ -7,18 +6,15 @@
 # if you have several NFS servers.
 #
 define nfs::client::mount::nfs_v4::root (
-  $ensure = 'mounted',
+  $ensure    = 'mounted',
   $server,
-  $mount = undef,
-  $remounts = false,
-  $atboot = false,
-  $options = '_netdev',
+  $mount     = undef,
+  $remounts  = false,
+  $atboot    = false,
+  $options   = '_netdev',
   $bindmount = undef,
-  $nfstag = undef
-) {
-
+  $nfstag    = undef) {
   include nfs::client
-
 
   if $mount == undef {
     $_nfs4_mount = $nfs::client::nfs_v4_mount_root
@@ -26,9 +22,10 @@ define nfs::client::mount::nfs_v4::root (
     $_nfs4_mount = $mount
   }
 
-  nfs::mkdir{$_nfs4_mount: }
+  nfs::mkdir { $_nfs4_mount:
+  }
 
-  mount {"shared root by ${::clientcert} on ${_nfs4_mount}":
+  mount { "shared root by ${::clientcert} on ${_nfs4_mount}":
     ensure   => $ensure,
     device   => "${server}:/",
     fstype   => 'nfs4',
@@ -39,15 +36,12 @@ define nfs::client::mount::nfs_v4::root (
     require  => Nfs::Mkdir[$_nfs4_mount],
   }
 
+  if $bindmount != undef {
+    nfs::client::mount::nfs_v4::bindmount { $_nfs4_mount:
+      ensure     => $ensure,
+      mount_name => $bindmount,
+    }
 
- if $bindmount != undef {
-   nfs::client::mount::nfs_v4::bindmount { $_nfs4_mount:
-     ensure     => $ensure,
-     mount_name => $bindmount,
-   }
-
- }
-
-
+  }
 
 }

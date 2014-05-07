@@ -1,5 +1,4 @@
-#
-# == Define nfs::client::mount
+# # == Define nfs::client::mount
 #
 # Set up NFS server and exports. NFSv3 and NFSv4 supported.
 #
@@ -20,27 +19,24 @@
 define nfs::client::mount (
   $server,
   $share,
-  $ensure = 'mounted',
-  $mount = $title,
-  $remounts = false,
-  $atboot = false,
-  $options = '_netdev',
+  $ensure    = 'mounted',
+  $mount     = $title,
+  $remounts  = false,
+  $atboot    = false,
+  $options   = '_netdev',
   $bindmount = undef,
-  $nfstag = undef
-) {
-
+  $nfstag    = undef) {
   include nfs::client
 
-
   if $nfs::client::nfs_v4 == true {
-
     if $mount == undef {
       $_nfs4_mount = "${nfs::client::nfs_v4_mount_root}/${share}"
     } else {
       $_nfs4_mount = $mount
     }
 
-    nfs::mkdir{ $_nfs4_mount: }
+    nfs::mkdir { $_nfs4_mount:
+    }
 
     mount { "shared ${share} by ${::clientcert} on ${_nfs4_mount}":
       ensure   => $ensure,
@@ -53,27 +49,25 @@ define nfs::client::mount (
       require  => Nfs::Mkdir[$_nfs4_mount],
     }
 
+    if $bindmount != undef {
+      nfs::client::mount::nfs_v4::bindmount { $_nfs4_mount:
+        ensure     => $ensure,
+        mount_name => $bindmount,
+      }
 
-   if $bindmount != undef {
-     nfs::client::mount::nfs_v4::bindmount { $_nfs4_mount:
-       ensure     => $ensure,
-       mount_name => $bindmount,
-     }
-
-   }
-
+    }
 
   } else {
-
     if $mount == undef {
       $_mount = $share
     } else {
-     $_mount = $mount
+      $_mount = $mount
     }
 
-    nfs::mkdir{ $_mount: }
+    nfs::mkdir { $_mount:
+    }
 
-    mount {"shared ${share} by ${::clientcert}":
+    mount { "shared ${share} by ${::clientcert}":
       ensure   => $ensure,
       device   => "${server}:${share}",
       fstype   => 'nfs',
@@ -83,7 +77,6 @@ define nfs::client::mount (
       atboot   => $atboot,
       require  => Nfs::Mkdir[$_mount],
     }
-
 
   }
 
