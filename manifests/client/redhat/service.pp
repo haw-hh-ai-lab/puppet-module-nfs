@@ -9,47 +9,47 @@ class nfs::client::redhat::service {
 
   $os_major = $nfs::client::redhat::params::osmajor
 
-  service { "nfslock":
+  service { 'nfslock':
     ensure    => running,
     enable    => true,
     hasstatus => true,
     require   => $os_major ? {
-      6       => Service["rpcbind"],
+      6       => Service['rpcbind'],
       5       => [
-        Package["portmap"],
-        Package["nfs-utils"]],
+        Package['portmap'],
+        Package['nfs-utils']],
       default => fail("Redhat major version ${os_major} not supported"),
     },
   }
 
-  service { "netfs":
+  service { 'netfs':
     enable  => true,
     require => $os_major ? {
-      6       => Service["nfslock"],
+      6       => Service['nfslock'],
       5       => [
-        Service["portmap"],
-        Service["nfslock"]],
+        Service['portmap'],
+        Service['nfslock']],
       default => fail("Redhat major version ${os_major} not supported"),
     },
   }
 
   case $os_major {
     6       : {
-      service { "rpcbind":
+      service { 'rpcbind':
         ensure    => running,
         enable    => true,
         hasstatus => true,
         require   => [
-          Package["rpcbind"], Package["nfs-utils"]],
+          Package['rpcbind'], Package['nfs-utils']],
       }
     }
     5       : {
-      service { "portmap":
+      service { 'portmap':
         ensure    => running,
         enable    => true,
         hasstatus => true,
         require   => [
-          Package["portmap"], Package["nfs-utils"]],
+          Package['portmap'], Package['nfs-utils']],
       }
     }
     default : {

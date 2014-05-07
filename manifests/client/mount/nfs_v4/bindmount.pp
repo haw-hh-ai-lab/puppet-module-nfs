@@ -1,6 +1,6 @@
 define nfs::client::mount::nfs_v4::bindmount (
+  $mount_name,
   $ensure = 'present',
-  $mount_name
   ) {
 
   nfs::mkdir{$mount_name: }

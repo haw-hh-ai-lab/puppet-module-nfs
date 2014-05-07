@@ -1,3 +1,6 @@
+#
+# add configuration fragment to /etc/exports for individual export
+#
 define nfs::server::export::configure (
   $ensure = 'present',
   $clients
