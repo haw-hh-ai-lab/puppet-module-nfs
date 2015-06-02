@@ -6,6 +6,6 @@ fixtures:
     concat:
       repo: "git://github.com/puppetlabs/puppetlabs-concat.git"
       ref: "1.1.1"
-    "augeasproviders": "git://github.com/hercules-team/augeasproviders.git"
+    "augeasproviders_shellvar": "git://github.com/hercules-team/augeasproviders_shellvar.git"
   symlinks:
     "nfs": "#{source_dir}"
