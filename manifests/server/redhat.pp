@@ -12,6 +12,10 @@ class nfs::server::redhat(
     }
   }
 
+  if ($mountd_port != undef){
+    fail('Setting mountd port currently not supported on RedHat')
+  }
+
   include nfs::server::redhat::install, nfs::server::redhat::service
 
 
