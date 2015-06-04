@@ -47,10 +47,10 @@ class nfs::server (
 ) inherits nfs::params {
 
   class { "nfs::server::${::nfs::params::osfamily}":
-    nfs_v4               => $nfs_v4,
-    nfs_v4_idmap_domain  => $nfs_v4_idmap_domain,
-    mountd_port          => $mountd_port,
-    mountd_threads       => $mountd_threads,
+    nfs_v4              => $nfs_v4,
+    nfs_v4_idmap_domain => $nfs_v4_idmap_domain,
+    mountd_port         => $mountd_port,
+    mountd_threads      => $mountd_threads,
   }
 
   include nfs::server::configure
