@@ -1,7 +1,7 @@
 require 'spec_helper'
 describe 'nfs::server::redhat' do
   context "operatingsystemrelease => 6.4" do
-    let(:facts) { {:operatingsystemrelease => 6.4} }
+    let(:facts) { {:operatingsystemrelease => '6.4'} }
     it do
       should contain_class('nfs::client::redhat')
       should contain_service('nfs').with( 'ensure' => 'running'  )
@@ -9,7 +9,7 @@ describe 'nfs::server::redhat' do
   end
   
   context "operatingsystemrelease => 7.1" do
-    let(:facts) { {:operatingsystemrelease => 7.1} }
+    let(:facts) { {:operatingsystemrelease => '7.1'} }
     it do
       should contain_class('nfs::client::redhat')
       should contain_service('nfs-server').with( 'ensure' => 'running'  )
