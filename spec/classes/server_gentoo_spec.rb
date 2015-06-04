@@ -3,6 +3,7 @@ describe 'nfs::server::gentoo' do
 
   it do
     should contain_class('nfs::client::gentoo')
+    should contain_class('nfs::server::gentoo::service')
     should contain_service('nfs').with( 'ensure' => 'running'  )
   end
   context ":nfs_v4 => true" do

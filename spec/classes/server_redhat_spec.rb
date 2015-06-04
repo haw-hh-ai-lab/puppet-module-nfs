@@ -12,6 +12,7 @@ describe 'nfs::server::redhat' do
     let(:facts) { {:operatingsystemrelease => '7.1'} }
     it do
       should contain_class('nfs::client::redhat')
+      should contain_class('nfs::server::redhat::service')
       should contain_service('nfs-server').with( 'ensure' => 'running'  )
     end
 
